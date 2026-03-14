@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - WEB3_INSIDE</title>
+    <style>
+        /* Import premium fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background with image and blur */
+        body {
+            font-family: 'Space Grotesk', 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Background image container */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('wb3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Blur overlay */
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Gradient text - lime green */
+        .gradient-text {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Glassmorphism - premium effect */
+        .glass {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Header styles */
+        header {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 32px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 50%, #84cc16 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(132, 204, 22, 0.3);
+        }
+
+        h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 20px 0 15px;
+            color: white;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin: 15px 0 25px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #84cc16;
+            padding-left: 20px;
+        }
+
+        .button-nav {
+            display: flex;
+            gap: 15px;
+            margin: 35px 0 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .Btn {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(132, 204, 22, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Space Grotesk', sans-serif;
+            min-width: 235px;
+            flex: 1 1 auto;
+        }
+
+        .Btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px rgba(132, 204, 22, 0.4);
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+        }
+
+        /* Main content */
+        main {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px;
+            border-radius: 32px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Project counter badge */
+        .project-counter {
+            display: inline-block;
+            background: rgba(132, 204, 22, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+            color: #84cc16;
+            font-weight: 600;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        /* Responsive grid for buttons */
+        @media (min-width: 768px) {
+            .button-nav {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 15px;
+            }
+            
+            .Btn {
+                width: 100%;
+                padding: 16px 12px;
+                font-size: 0.9rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+                text-align: center;
+            }
+            
+            h2 {
+                font-size: 2rem;
+                text-align: center;
+                display: block;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            .Btn {
+                width: 100%;
+                padding: 16px;
+            }
+            
+            header, main {
+                padding: 25px;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #65a30d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background image -->
+    <div class="background-image"></div>
+    <!-- Blur overlay -->
+    <div class="background-blur"></div>
+
+    <header>
+        <h1>WEB3_INSIDE</h1>
+        <div>
+            <h2>The projects of Web3 research documents.</h2>
+            <h3>Here you can see what are you investing in with the resources:</h3>
+            <div class="project-counter">
+                🔍 20+ Projects Available
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="gradient-text">Welcome to your investment intel.</h2>
+        
+        <div class="button-nav">
+            <button class="Btn" onclick="location.href='btc.html'">₿ Know more about BTC</button>
+            <button class="Btn" onclick="location.href='eth.html'">⟠ Know more about ETH</button>
+            <button class="Btn" onclick="location.href='Sol.html'">◎ Know more about SOL</button>
+            <button class="Btn" onclick="location.href='bnb.html'">⛓️ Know more about BNB</button>
+            <button class="Btn" onclick="location.href='nxs.html'">⬡ Know more about NXS</button>
+            <button class="Btn" onclick="location.href='xrp.html'">✪ Know more about XRP</button>
+            <button class="Btn" onclick="location.href='usdc.html'">💵 Know more about USDC</button>
+            <button class="Btn" onclick="location.href='ada.html'">⬡ Know more about ADA</button>
+            <button class="Btn" onclick="location.href='avax.html'">🔺 Know more about AVAX</button>
+            <button class="Btn" onclick="location.href='ton.html'">💎 Know more about TON</button>
+            <button class="Btn" onclick="location.href='link.html'">🔗 Know more about LINK</button>
+            <button class="Btn" onclick="location.href='doge.html'">🐕 Know more about DOGE</button>
+            <button class="Btn" onclick="location.href='dot.html'">● Know more about DOT</button>
+            <button class="Btn" onclick="location.href='rndr.html'">🎨 Know more about RNDR</button>
+            <button class="Btn" onclick="location.href='MATIC.html'">⬣ Know more about MATIC</button>
+            <button class="Btn" onclick="location.href='NEAR.html'">🪐 Know more about NEAR</button>
+            <button class="Btn" onclick="location.href='ICP.html'">🌐 Know more about ICP</button>
+            <button class="Btn" onclick="location.href='IMX.html'">⚡ Know more about IMX</button>
+            <button class="Btn" onclick="location.href='APT.html'">⏺️ Know more about APT</button>
+            <button class="Btn" onclick="location.href='SHIB.html'">🐶 Know more about SHIB</button>
+            <button class="Btn" onclick="location.href='FET.html'">🤖 Know more about FET</button>
+        </div>
+
+        <p style="margin-top: 30px; color: rgba(255,255,255,0.8);">
+            Click any project above to view detailed research and analysis
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 WEB3_INSIDE_Momegaii</p>
+    </footer>
+</body>
+</html>

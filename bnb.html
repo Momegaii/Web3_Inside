@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Coin (BNB) - WEB3_INSIDE</title>
+    <style>
+        /* Import premium fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background with image and blur */
+        body {
+            font-family: 'Space Grotesk', 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Background image container */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('wb3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Blur overlay */
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Gradient text - lime green */
+        .gradient-text {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Glassmorphism - premium effect */
+        .glass {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Header styles */
+        header {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 32px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 50%, #84cc16 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(132, 204, 22, 0.3);
+        }
+
+        h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 20px 0 15px;
+            color: white;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 30px 0 20px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #84cc16;
+            padding-left: 20px;
+        }
+
+        h4 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 25px 0 15px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #84cc16;
+            padding-left: 15px;
+        }
+
+        .button-nav {
+            margin: 30px 0 15px;
+        }
+
+        .Btn {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(132, 204, 22, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .Btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px rgba(132, 204, 22, 0.4);
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+        }
+
+        /* Main content */
+        main {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px;
+            border-radius: 32px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            line-height: 1.8;
+        }
+
+        ul {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 30px 45px;
+            border-radius: 24px;
+            border-left: 4px solid #84cc16;
+            margin: 25px 0;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        li {
+            margin: 15px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.05rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        li strong {
+            color: #84cc16;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(132, 204, 22, 0.3);
+        }
+
+        a {
+            color: #84cc16;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(132, 204, 22, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: #a3e635;
+            border-bottom: 1px solid #84cc16;
+        }
+
+        /* Warning/alert styling */
+        .warning {
+            background: rgba(239, 68, 68, 0.2);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #ef4444;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 25px 0;
+            color: #fff;
+        }
+
+        .warning strong {
+            color: #ef4444;
+        }
+
+        /* BNB-specific badge */
+        .bnb-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0000 0%, #65a30d 100%);
+            padding: 4px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 15px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(132, 204, 22, 0.5);
+        }
+
+        /* Burn highlight */
+        .burn-highlight {
+            color: #84cc16;
+            font-weight: 600;
+            background: rgba(132, 204, 22, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #65a30d;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+                display: block;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            h4 {
+                font-size: 1.3rem;
+            }
+            
+            .Btn {
+                width: 100%;
+            }
+            
+            header, main {
+                padding: 25px;
+            }
+            
+            ul {
+                padding: 20px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background image -->
+    <div class="background-image"></div>
+    <!-- Blur overlay -->
+    <div class="background-blur"></div>
+
+    <header>
+        <h1>WEB3_INSIDE</h1>
+        <div>
+            <h2>BINANCE COIN (BNB) 
+                <span class="bnb-badge">Exchange Native</span>
+            </h2>
+            <h3>Research & Analysis</h3>
+        </div>
+        <div class="button-nav">
+            <button class="Btn" onclick="location.href='projects.html'">← BACK TO PROJECTS</button>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h3>1. What Binance Coin Actually Is</h3>
+            <p>BNB is the native cryptocurrency of the Binance ecosystem. Originally issued as an ERC-20 token, it migrated to Binance Chain and Binance Smart Chain. BNB is used to pay transaction fees on Binance exchanges, participate in token sales on Binance Launchpad, and fuel the Binance Smart Chain ecosystem for DeFi and dApps. <a href="https://www.binance.com/en/bnb" target="_blank">[Source]</a></p>
+        </section>
+
+        <section>
+            <h3>2. Who Created Binance Coin</h3>
+            <p>BNB was launched by <strong>Changpeng Zhao (CZ)</strong> and the Binance team in 2017 during the Binance ICO. Binance quickly became the largest crypto exchange by trading volume, and BNB gained utility within its growing ecosystem. <a href="https://www.binance.com/en/blog/421499824684900407/Binance-Coin-BNB-Token-Overview" target="_blank">[Source]</a></p>
+        </section>
+
+        <section>
+            <h3>3. Team & Development</h3>
+            <p>BNB development and network upgrades are managed by Binance Labs and the Binance team. The Binance Smart Chain (BSC) ecosystem is open to developers building dApps, DeFi protocols, and NFT projects. The team also regularly conducts <span class="burn-highlight">token burns</span> to reduce supply and increase value. <a href="https://www.binance.com/en/blog/all/what-is-binance-smart-chain-bsc-421499824684900407" target="_blank">[Source]</a></p>
+        </section>
+
+        <section>
+            <h3>4. Risks of Trading BNB</h3>
+            <ul>
+                <li><strong>Spot Trading:</strong> BNB is volatile; daily swings of 5–15% are common.</li>
+                <li><strong>Platform Dependency:</strong> BNB's utility and value are tightly linked to Binance's performance and reputation.</li>
+                <li><strong>Smart Contract Risk:</strong> Using BNB in DeFi or BSC apps exposes you to potential bugs or exploits.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>5. Supporting BNB</h3>
+            <p>Holding or using BNB supports the Binance ecosystem and allows participation in staking, transaction fee discounts, token launches, and DeFi on Binance Smart Chain. <a href="https://www.binance.com/en/bnb" target="_blank">[Source]</a></p>
+        </section>
+
+        <section>
+            <h3>6. Institutional Investment & Big Names</h3>
+            <ul>
+                <li><strong>Binance Exchange:</strong> The main driver and largest holder of BNB. <a href="https://www.binance.com/en" target="_blank">[Source]</a></li>
+                <li><strong>Binance Labs:</strong> Venture fund supporting BNB ecosystem projects. <a href="https://labs.binance.com/" target="_blank">[Source]</a></li>
+                <li><strong>Investors & Partners:</strong> Early backers include private investors in Binance's ICO and ecosystem partners leveraging BSC. <a href="https://www.binance.com/en/blog/421499824684900407/Binance-Coin-BNB-Token-Overview" target="_blank">[Source]</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>7. Why BNB is Risky</h3>
+            <ul>
+                <li><strong>Exchange Dependence:</strong> BNB's value heavily relies on Binance's continued operation and reputation.</li>
+                <li><strong>Price Volatility:</strong> High daily swings are common.</li>
+                <li><strong>Platform Risk:</strong> Using BNB in DeFi or yield programs can expose funds to hacks or mismanagement.</li>
+                <li><strong>Regulatory Risk:</strong> Binance and BNB face scrutiny in multiple countries, which can impact liquidity and price.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>8. Reducing BNB Risk</h3>
+            <ul>
+                <li>Use private wallets or cold storage for long-term holding.</li>
+                <li>Limit exposure to what you can afford to lose.</li>
+                <li>Use audited DeFi and BSC applications.</li>
+                <li>Stay informed about Binance's platform and regulatory news.</li>
+            </ul>
+            <div class="warning">
+                <p><strong>⚠️ RISK WARNING:</strong> BNB carries inherent risk, but careful storage, limiting exposure, and using reputable platforms can reduce potential losses.</p>
+            </div>
+        </section>
+
+        <section>
+            <h3>9. DeFi & Passive Earn on Binance Smart Chain</h3>
+            <p>BNB powers DeFi applications and dApps on Binance Smart Chain. You can stake BNB or deposit it into DeFi protocols to earn APY, but returns are subject to smart contract and platform risk.</p>
+
+            <h4>Risks:</h4>
+            <ul>
+                <li><strong>Smart Contract Risk:</strong> Bugs or exploits on BSC-based apps.</li>
+                <li><strong>Platform Risk:</strong> Centralized earn programs may fail or be hacked.</li>
+                <li><strong>Market Risk:</strong> APY is often paid in BNB; price drops reduce effective yield.</li>
+                <li><strong>Liquidity Risk:</strong> Locked funds may be inaccessible during market stress.</li>
+                <li><strong>Regulatory Risk:</strong> Binance and BNB may face government restrictions.</li>
+            </ul>
+
+            <h4>Reducing Risk:</h4>
+            <ul>
+                <li>Use audited and reputable BSC protocols.</li>
+                <li>Diversify deposits across multiple platforms.</li>
+                <li>Check lock-up periods and withdrawal rules.</li>
+                <li>Only stake or invest what you can afford to lose.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 WEB3_INSIDE_Momegaii</p>
+    </footer>
+</body>
+</html>

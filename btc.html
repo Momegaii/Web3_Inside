@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin (BTC) - WEB3_INSIDE</title>
+    <style>
+        /* Import premium fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background with image and blur */
+        body {
+            font-family: 'Space Grotesk', 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Background image container */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('wb3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Blur overlay */
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Gradient text - lime green */
+        .gradient-text {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Glassmorphism - premium effect */
+        .glass {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Header styles */
+        header {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 32px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 50%, #84cc16 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(132, 204, 22, 0.3);
+        }
+
+        h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 20px 0 15px;
+            color: white;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 30px 0 20px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #84cc16;
+            padding-left: 20px;
+        }
+
+        h4 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 25px 0 15px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #84cc16;
+            padding-left: 15px;
+        }
+
+        .button-nav {
+            margin: 30px 0 15px;
+        }
+
+        .Btn {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(132, 204, 22, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .Btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px rgba(132, 204, 22, 0.4);
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+        }
+
+        /* Main content */
+        main {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px;
+            border-radius: 32px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            line-height: 1.8;
+        }
+
+        ul {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 30px 45px;
+            border-radius: 24px;
+            border-left: 4px solid #84cc16;
+            margin: 25px 0;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        li {
+            margin: 15px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.05rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        li strong {
+            color: #84cc16;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(132, 204, 22, 0.3);
+        }
+
+        a {
+            color: #84cc16;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(132, 204, 22, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: #a3e635;
+            border-bottom: 1px solid #84cc16;
+        }
+
+        /* Warning/alert styling */
+        .warning {
+            background: rgba(239, 68, 68, 0.2);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #ef4444;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 25px 0;
+            color: #fff;
+        }
+
+        .warning strong {
+            color: #ef4444;
+        }
+
+        /* BTC-specific badge */
+        .btc-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0000 0%, #65a30d 100%);
+            padding: 4px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 15px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(132, 204, 22, 0.5);
+        }
+
+        /* Genesis block highlight */
+        .genesis-highlight {
+            color: #84cc16;
+            font-weight: 600;
+            background: rgba(132, 204, 22, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #65a30d;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+                display: block;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            h4 {
+                font-size: 1.3rem;
+            }
+            
+            .Btn {
+                width: 100%;
+            }
+            
+            header, main {
+                padding: 25px;
+            }
+            
+            ul {
+                padding: 20px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background image -->
+    <div class="background-image"></div>
+    <!-- Blur overlay -->
+    <div class="background-blur"></div>
+
+    <header>
+        <h1>WEB3_INSIDE</h1>
+        <div>
+            <h2>BITCOIN (BTC) 
+                <span class="btc-badge">Genesis 2009</span>
+            </h2>
+            <h3>Research & Analysis</h3>
+        </div>
+        <div class="button-nav">
+            <button class="Btn" onclick="location.href='projects.html'">← BACK TO PROJECTS</button>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h3>1. What Bitcoin Actually Is</h3>
+            <p>Bitcoin is the first decentralized digital currency — a form of money you can send or receive without a bank or government. Transactions are recorded on a public blockchain, like an open ledger anyone can verify. Its supply is capped at 21 million coins, which adds to its value. <a href="https://www.forbes.com/advisor/investing/cryptocurrency/who-is-satoshi-nakamoto/?utm_source=chatgpt.com" target="_blank">[Source]</a></p>
+        </section>
+
+        <section>
+            <h3>2. Who Made It</h3>
+            <p>Bitcoin was created by a pseudonymous person or group called <strong>Satoshi Nakamoto</strong>. In 2008, they published the whitepaper "Bitcoin: A Peer-to-Peer Electronic Cash System." The first block, called the <span class="genesis-highlight">genesis block</span>, was mined in January 2009. Nakamoto's true identity remains unknown. <a href="https://www.forbes.com/advisor/investing/cryptocurrency/who-is-satoshi-nakamoto/?utm_source=chatgpt.com" target="_blank">[Source]</a></p>
+        </section>
+
+        <section>
+            <h3>3. Team & Development</h3>
+            <p>Bitcoin isn't run by a company or CEO. It's maintained by an open-source community. Core development is managed by volunteers and supported by organizations like Blockstream, Chaincode Labs, MIT DCI, and Spiral. Bitcoin has no central corporation or leadership team. <a href="https://www.htx.com/en-in/news/behind-bitcoins-trillion-dollar-market-cap-a-41-person-devel-EYLeYGkA/?utm_source=chatgpt.com" target="_blank">[Source]</a></p>
+        </section>
+
+        <section>
+            <h3>4. Risks of Trading Bitcoin</h3>
+            <ul>
+                <li><strong>Spot Trading:</strong> Highly volatile; prices can swing 10–30% in a day. No guaranteed returns and not insured.</li>
+                <li><strong>Flexible Earn/Yield Programs:</strong> Funds may be locked or lent out. Platforms can fail or be hacked. No FDIC-style protection.</li>
+                <li><strong>Regulatory & Market Risks:</strong> Governments may restrict trading, and market crashes can reduce value quickly.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>5. Supporting Bitcoin</h3>
+            <p>Buying Bitcoin transfers value to the network and gives you a digital asset that can be held, spent, or transferred globally. You're owning units of a decentralized monetary network, not a company, and accept the risk of price fluctuations. <a href="https://www.forbes.com/advisor/investing/cryptocurrency/who-is-satoshi-nakamoto/?utm_source=chatgpt.com" target="_blank">[Source]</a></p>
+        </section>
+
+        <section>
+            <h3>6. Institutional Investment & Big Names</h3>
+            <ul>
+                <li><strong>BlackRock:</strong> Large Bitcoin investment products (ETPs). <a href="https://www.reuters.com/technology/blackrock-launches-first-bitcoin-product-europe-2025-03-25/?utm_source=chatgpt.com" target="_blank">[Source]</a></li>
+                <li><strong>Grayscale Bitcoin Trust:</strong> Holds hundreds of thousands of BTC. <a href="https://www.investopedia.com/articles/people/091516/top-5-investors-investing-bitcoin.asp?utm_source=chatgpt.com" target="_blank">[Source]</a></li>
+                <li><strong>MicroStrategy:</strong> Corporate BTC holdings. <a href="https://en.wikipedia.org/wiki/MicroStrategy?utm_source=chatgpt.com" target="_blank">[Source]</a></li>
+                <li><strong>Ego Death Capital:</strong> $100M fund for Bitcoin projects. <a href="https://www.axios.com/2025/07/08/ego-death-100-million-bitcoin-companies?utm_source=chatgpt.com" target="_blank">[Source]</a></li>
+                <li><strong>Peter Thiel:</strong> Historical BTC investor. <a href="https://en.wikipedia.org/wiki/Peter_Thiel?utm_source=chatgpt.com" target="_blank">[Source]</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>7. Why Bitcoin is Risky</h3>
+            <ul>
+                <li><strong>Price Volatility:</strong> Extreme swings can wipe out gains quickly.</li>
+                <li><strong>No Central Authority:</strong> No bailout if the network fails.</li>
+                <li><strong>Exchange & Wallet Risks:</strong> Hacks, lost keys, or mismanagement can destroy funds.</li>
+                <li><strong>Platform Risk in Earn Programs:</strong> Lending platforms can fail or be hacked.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>8. Reducing Bitcoin Risk</h3>
+            <ul>
+                <li><strong>Cold Storage:</strong> Store BTC offline in private wallets.</li>
+                <li><strong>Long-Term Holding:</strong> Hold 3–5 years to smooth volatility.</li>
+                <li><strong>Diversification:</strong> Mix BTC with other assets.</li>
+                <li><strong>Use Reputable Platforms:</strong> Prefer insured or audited services.</li>
+                <li><strong>Limit Exposure:</strong> Only invest what you can afford to lose.</li>
+            </ul>
+            <div class="warning">
+                <p><strong>⚠️ RISK WARNING:</strong> Bitcoin is never completely risk-free. Storage, time, and diversification reduce risk but cannot eliminate it entirely.</p>
+            </div>
+        </section>
+
+        <section>
+            <h3>9. What is DeFi & Passive Earn</h3>
+            <p>DeFi (Decentralized Finance) platforms let you lend, stake, or deposit crypto to earn interest or rewards, often advertised as APY (Annual Percentage Yield). Passive earn programs work similarly: you lock or lend your crypto to a platform and get regular returns without active trading.</p>
+
+            <h4>Risks of DeFi & Passive Earn</h4>
+            <ul>
+                <li><strong>Smart Contract Risk:</strong> Bugs or exploits can drain funds.</li>
+                <li><strong>Platform Risk:</strong> Centralized platforms can fail or be hacked.</li>
+                <li><strong>Market Risk:</strong> APY is often in crypto; price drops can reduce returns.</li>
+                <li><strong>Liquidity Risk:</strong> Locked funds may be inaccessible in stress events.</li>
+                <li><strong>Regulatory Risk:</strong> Governments can restrict or ban unlicensed services.</li>
+            </ul>
+
+            <h4>Reducing DeFi & Passive Earn Risk</h4>
+            <ul>
+                <li>Use well-audited, reputable platforms.</li>
+                <li>Diversify deposits across multiple platforms.</li>
+                <li>Use stablecoins for APY to reduce volatility risk.</li>
+                <li>Check lock-up terms and withdrawal policies.</li>
+                <li>Never invest more than you can afford to lose.</li>
+            </ul>
+            <div class="warning">
+                <p><strong>⚠️ YIELD WARNING:</strong> High APYs usually come with high risk. Security, smart contract reliability, and market stability determine returns.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 WEB3_INSIDE_Momegaii</p>
+    </footer>
+</body>
+</html>

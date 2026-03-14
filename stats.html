@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLEX · hyper‑detailed crypto dashboard</title>
+    <!-- Chart.js 4.4 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- font-awesome (optional, for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+        body {
+            background: #0a0f1e;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            padding: 1.8rem;
+            color: #e9edf5;
+        }
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        /* header + controls */
+        .top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .title-section h1 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            background: linear-gradient(145deg, #c0d0ff, #b3f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+        .title-section .sub {
+            color: #7f8ea3;
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+        }
+
+        .control-panel {
+            background: #151f2f;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            border: 1px solid #2c3b54;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            box-shadow: 0 10px 25px -5px #030613;
+        }
+        .control-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .control-item label {
+            font-size: 0.85rem;
+            color: #9ab0cc;
+            font-weight: 500;
+        }
+        .control-item input {
+            background: #0b1424;
+            border: 1px solid #2f405b;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            width: 210px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .control-item input:focus {
+            border-color: #3b82f6;
+        }
+        .btn-primary {
+            background: #2563eb;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.6rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 6px 14px rgba(37,99,235,0.4);
+        }
+        .btn-primary:hover {
+            background: #3b82f6;
+            transform: scale(1.02);
+        }
+
+        /* detailed info card (tooltip rich) */
+        .concept-deep {
+            background: #0f1a28;
+            border-radius: 36px;
+            padding: 1.5rem 2.2rem;
+            margin-bottom: 2.3rem;
+            border: 1px solid #2b3d58;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: 0 18px 30px -12px #010314;
+        }
+        .concept-deep h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #a7c6ff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1e2b3f;
+            padding: 0.3rem 1.5rem 0.3rem 1.5rem;
+            border-radius: 40px;
+        }
+        .concept-deep h2 i {
+            font-size: 1.5rem;
+            color: #ffd966;
+        }
+        .concept-deep p {
+            color: #cbd9f0;
+            font-size: 1rem;
+            max-width: 750px;
+            line-height: 1.6;
+        }
+        .concept-deep .tooltip-badge {
+            background: #1f324b;
+            color: #bbd7fb;
+            padding: 0.4rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            border: 1px dashed #5375a3;
+            cursor: help;
+            position: relative;
+        }
+        .concept-deep .tooltip-badge:hover::after {
+            content: "Price × circulating supply = market cap. Large-cap: >$10B, mid-cap $1B–$10B, small-cap <$1B. Influences volatility & liquidity.";
+            position: absolute;
+            background: #111e30;
+            color: #deecff;
+            font-size: 0.8rem;
+            padding: 0.7rem 1.2rem;
+            border-radius: 20px;
+            width: 260px;
+            bottom: 150%;
+            left: 0;
+            box-shadow: 0 10px 20px black;
+            border: 1px solid #3b5680;
+            z-index: 100;
+            white-space: normal;
+            font-weight: 400;
+            text-align: left;
+        }
+
+        /* grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.8rem;
+        }
+
+        /* tile – much more detail */
+        .tile {
+            background: #121c2f;
+            border-radius: 32px;
+            padding: 1.5rem 1.2rem 1.2rem 1.5rem;
+            border: 1px solid #25344f;
+            transition: 0.15s;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(2px);
+        }
+        .tile:hover {
+            border-color: #5579b5;
+            box-shadow: 0 12px 24px #040a17;
+        }
+
+        .tile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .symbol {
+            font-size: 2.1rem;
+            font-weight: 700;
+            background: linear-gradient(to bottom, #f0f4ff, #cbdcff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .apy-badge {
+            background: #0a2844;
+            color: #62c3ff;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid #1e5a8b;
+            box-shadow: 0 0 10px #1e4c76;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.9rem;
+            flex-wrap: wrap;
+            margin: 0.3rem 0 0.1rem;
+        }
+        .price {
+            font-size: 2.0rem;
+            font-weight: 500;
+            color: #f0f6ff;
+        }
+        .change {
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.15rem 0.9rem;
+            border-radius: 40px;
+        }
+        .positive { background: #0f3820; color: #abf0b5; }
+        .negative { background: #541c1c; color: #ffb0b0; }
+
+        .marketcap {
+            font-size: 0.9rem;
+            color: #9fb0d3;
+            margin: 0.6rem 0 0.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #253f5a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .marketcap i {
+            color: #f5c542;
+        }
+
+        /* extra detailed stats row */
+        .detail-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 1.2rem;
+            background: #0c1424;
+            padding: 0.8rem 1rem;
+            border-radius: 28px;
+            margin: 0.7rem 0 0.6rem;
+            font-size: 0.8rem;
+            border: 1px solid #253e5a;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .stat-item i {
+            color: #b3cdf5;
+            width: 18px;
+            font-size: 0.9rem;
+        }
+
+        .chart-container {
+            width: 100%;
+            margin: 0.4rem 0 0.6rem;
+            height: 80px;
+        }
+        canvas {
+            width: 100% !important;
+            height: 80px !important;
+        }
+
+        .indicator-badge {
+            background: #1f3147;
+            color: #b1d0ff;
+            border-radius: 24px;
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+            border: 1px solid #385a80;
+            margin-top: 6px;
+        }
+
+        .footnote {
+            margin-top: 2.8rem;
+            font-size: 0.8rem;
+            color: #536684;
+            text-align: center;
+        }
+        .home-btn {
+            background: #1e2d44;
+            border: none;
+            color: #c9ddff;
+            padding: 0.6rem 2.4rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: 0.1s;
+            border: 1px solid #3e5982;
+        }
+        .home-btn:hover {
+            background: #263f60;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- top bar with more details -->
+    <div class="top-bar">
+        <div class="title-section">
+            <h1>🔍 FLEX · hyper‑detailed crypto dashboard</h1>
+            <div class="sub"><i class="fas fa-chart-line"></i> real‑time price · market cap tiers · on‑chain style stats · advanced tooltips</div>
+        </div>
+        <div class="control-panel">
+            <div class="control-item">
+                <label><i class="far fa-keyboard"></i> tickers</label>
+                <input type="text" id="tickerInput" value="BTC,ETH,SOL,BNB,XRP,USDC,ADA,DOGE,AVAX,LINK,RNDR,NEAR,APT,SHIB,UNI,ATOM,ALGO,FTM,EGLD,KAS,INJ,OP" placeholder="e.g. BTC,ETH,SOL" size="24">
+            </div>
+            <button class="btn-primary" id="updateListBtn"><i class="fas fa-sync-alt"></i> load / reload</button>
+        </div>
+    </div>
+
+    <!-- super detailed market cap + tooltip area -->
+    <div class="concept-deep">
+        <h2><i class="fas fa-info-circle"></i> market cap deep dive</h2>
+        <p><strong>market cap = price × circulating supply.</strong> It sizes the asset: large‑cap (>$10B) mature & liquid; mid‑cap ($1B–$10B) growth potential; small‑cap (<$1B) higher risk/volatility. The dashboard shows <strong>24h high/low, volume, and supply</strong> (when available). Hover badges for hidden definitions.</p>
+        <div class="tooltip-badge"><i class="far fa-question-circle"></i> hover for mcap tiers</div>
+    </div>
+
+    <!-- dynamic grid -->
+    <div id="dashboard" class="dashboard-grid"></div>
+
+    <div class="footnote">
+        <i class="fas fa-microchip"></i> updates every 10 sec · sparkline 50 ticks · more details = volume · supply · 24h range · simulated RSI / momentum
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <button class="home-btn" onclick="window.location.href='index.html'"><i class="fas fa-home"></i> HOME (placeholder)</button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---- CONFIG ----
+        const COINGECKO_BASE = 'https://api.coingecko.com/api/v3';
+        const UPDATE_INTERVAL = 10000;          // 10 sec
+        const MAX_CHART_POINTS = 50;
+
+        // ---- SYMBOL TO ID MAP (extensive) ----
+        const SYMBOL_TO_ID = {
+            'BTC':'bitcoin','ETH':'ethereum','SOL':'solana','BNB':'binancecoin','XRP':'ripple',
+            'USDC':'usd-coin','USDT':'tether','ADA':'cardano','AVAX':'avalanche-2','TON':'the-open-network',
+            'LINK':'chainlink','DOGE':'dogecoin','DOT':'polkadot','RNDR':'render-token','MATIC':'matic-network',
+            'NEAR':'near','ICP':'internet-computer','IMX':'immutable-x','APT':'aptos','SHIB':'shiba-inu',
+            'FET':'fetch-ai','UNI':'uniswap','ATOM':'cosmos','ALGO':'algorand','FTM':'fantom','EGLD':'elrond',
+            'VET':'vechain','THETA':'theta-token','FIL':'filecoin','HBAR':'hedera-hashgraph','KAS':'kaspa',
+            'OP':'optimism','INJ':'injective-protocol','LTC':'litecoin','BCH':'bitcoin-cash','TRX':'tron',
+            'APE':'apecoin','SAND':'the-sandbox','MANA':'decentraland','AXS':'axie-infinity','STETH':'staked-ether',
+            'DAI':'dai','WBTC':'wrapped-bitcoin','CRO':'crypto-com-chain','QNT':'quant','AR':'arweave'
+        };
+
+        // ---- MANUAL APY overrides (for stable/LST) ----
+        const APY_OVERRIDE = {
+            'USDC':4.2, 'USDT':3.8, 'DAI':3.5, 'BUSD':2.5, 'STETH':4.1, 'WBTC':0.5
+        };
+
+        // ---- global state ----
+        let activeTiles = [];                 // { id, symbol, apy }
+        let charts = {};                      // coinId -> Chart instance
+        let lastMarketData = {};               // store extra details for stats
+
+        const dashboardEl = document.getElementById('dashboard');
+        const tickerInput = document.getElementById('tickerInput');
+        const updateBtn = document.getElementById('updateListBtn');
+
+        // convert symbol to coinId using map or fallback lowercase
+        function symbolToId(symbol) {
+            const up = symbol.trim().toUpperCase();
+            if (SYMBOL_TO_ID[up]) return SYMBOL_TO_ID[up];
+            return symbol.trim().toLowerCase();  // generic fallback
+        }
+
+        // parse input into activeTiles (dedup, max 30)
+        function parseTilesFromInput() {
+            let raw = tickerInput.value;
+            let symbols = raw.split(',').map(s => s.trim().toUpperCase()).filter(s => s.length > 0).slice(0, 30);
+            if (symbols.length === 0) symbols = ['BTC','ETH','SOL','BNB','XRP','USDC','ADA'];
+            symbols = [...new Set(symbols)];
+
+            return symbols.map(sym => ({
+                symbol: sym,
+                id: symbolToId(sym),
+                apy: APY_OVERRIDE[sym] || null
+            }));
+        }
+
+        // rebuild entire grid (destroy old)
+        function rebuildDashboard() {
+            activeTiles = parseTilesFromInput();
+
+            // destroy charts
+            Object.values(charts).forEach(ch => ch && ch.destroy());
+            charts = {};
+            dashboardEl.innerHTML = '';
+
+            // create tiles skeleton
+            activeTiles.forEach(coin => {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
+                tile.id = `tile-${coin.id}`;
+
+                // we'll fill dynamic parts later. Include extra stat containers
+                tile.innerHTML = `
+                    <div class="tile-header">
+                        <span class="symbol">${coin.symbol}</span>
+                        ${coin.apy ? `<span class="apy-badge"><i class="fas fa-bolt"></i> APY ${coin.apy}%</span>` : ''}
+                    </div>
+                    <div class="price-row">
+                        <span class="price" id="price-${coin.id}">—</span>
+                        <span class="change" id="change-${coin.id}">—</span>
+                    </div>
+                    <div class="marketcap" id="marketcap-${coin.id}"><i class="fas fa-chart-pie"></i> Market Cap: —</div>
+                    
+                    <!-- extra stats row (detailed) -->
+                    <div class="detail-stats" id="stats-${coin.id}">
+                        <span class="stat-item"><i class="fas fa-chart-bar"></i> 24h high: —</span>
+                        <span class="stat-item"><i class="fas fa-chart-bar"></i> low: —</span>
+                        <span class="stat-item"><i class="fas fa-water"></i> volume: —</span>
+                        <span class="stat-item"><i class="fas fa-database"></i> supply: —</span>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="priceChart-${coin.id}"></canvas>
+                    </div>
+                    <div class="indicator-badge" id="indicator-${coin.id}">
+                        <i class="fas fa-chart-simple"></i> RSI(14): — · momentum: —
+                    </div>
+                `;
+                dashboardEl.appendChild(tile);
+
+                // init chart (empty)
+                const ctx = document.getElementById(`priceChart-${coin.id}`).getContext('2d');
+                charts[coin.id] = new Chart(ctx, {
+                    type: 'line',
+                    data: { labels: [], datasets: [{ data: [], borderColor: '#60a5fa', borderWidth: 2.5, pointRadius: 0, tension: 0.2 }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false } } }
+                });
+            });
+
+            if (activeTiles.length) {
+                fetchAllHistorical();
+                updateLivePrices();
+            }
+        }
+
+        // fetch historical 1d (minute) for sparklines
+        async function fetchAllHistorical() {
+            for (const coin of activeTiles) {
+                try {
+                    const url = `${COINGECKO_BASE}/coins/${coin.id}/market_chart?vs_currency=usd&days=1&interval=minute`;
+                    const res = await fetch(url);
+                    if (!res.ok) continue;
+                    const data = await res.json();
+                    if (data?.prices) {
+                        const prices = data.prices.map(p => p[1]);
+                        const times = data.prices.map(p => new Date(p[0]).toLocaleTimeString());
+                        const chart = charts[coin.id];
+                        if (chart) {
+                            chart.data.labels = times.slice(-MAX_CHART_POINTS);
+                            chart.data.datasets[0].data = prices.slice(-MAX_CHART_POINTS);
+                            chart.update();
+                        }
+                    }
+                } catch (e) {}
+                await new Promise(r => setTimeout(r, 60)); // gentle spread
+            }
+        }
+
+        // compute fake but plausible RSI & momentum from recent prices (for detail)
+        function computeIndicators(pricesArray) {
+            if (!pricesArray || pricesArray.length < 15) return { rsi: '—', momentum: '—' };
+            const recent = pricesArray.slice(-14);
+            let gains = 0, losses = 0;
+            for (let i = 1; i < recent.length; i++) {
+                const diff = recent[i] - recent[i-1];
+                if (diff >= 0) gains += diff; else losses -= diff;
+            }
+            const avgGain = gains / 14, avgLoss = losses / 14;
+            let rsi = 50;
+            if (avgLoss !== 0) {
+                const rs = avgGain / avgLoss;
+                rsi = 100 - 100 / (1 + rs);
+            } else if (avgGain > 0) rsi = 100;
+            rsi = Math.round(rsi);
+
+            const short = pricesArray.slice(-5);
+            const momentum = short.length >= 2 ? (short[short.length-1] - short[0]).toFixed(4) : '—';
+            return { rsi, momentum };
+        }
+
+        // update live prices + fill stats (high/low/volume/supply)
+        async function updateLivePrices() {
+            if (!activeTiles.length) return;
+            const ids = activeTiles.map(c => c.id).join(',');
+            try {
+                const url = `${COINGECKO_BASE}/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h`;
+                const res = await fetch(url);
+                if (!res.ok) return;
+                const data = await res.json();
+                const nowLabel = new Date().toLocaleTimeString();
+
+                data.forEach(coin => {
+                    const id = coin.id;
+                    lastMarketData[id] = coin;   // store for extra details
+
+                    // price & change
+                    const priceEl = document.getElementById(`price-${id}`);
+                    if (priceEl) {
+                        const formatted = coin.current_price < 0.01 ? coin.current_price.toFixed(8) : coin.current_price.toLocaleString(undefined, {maximumFractionDigits:5});
+                        priceEl.innerText = `$${formatted}`;
+                    }
+                    const changeEl = document.getElementById(`change-${id}`);
+                    if (changeEl && coin.price_change_percentage_24h !== undefined) {
+                        const val = coin.price_change_percentage_24h.toFixed(2);
+                        changeEl.innerText = `${val}%`;
+                        changeEl.classList.remove('positive','negative');
+                        changeEl.classList.add(coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative');
+                    }
+
+                    // market cap
+                    const mcapEl = document.getElementById(`marketcap-${id}`);
+                    if (mcapEl && coin.market_cap) {
+                        mcapEl.innerHTML = `<i class="fas fa-chart-pie"></i> Market Cap: $${coin.market_cap.toLocaleString()}`;
+                    }
+
+                    // stats row: 24h high / low / volume / circulating supply
+                    const statsEl = document.getElementById(`stats-${id}`);
+                    if (statsEl) {
+                        const high = coin.high_24h ? `$${coin.high_24h.toLocaleString()}` : '—';
+                        const low = coin.low_24h ? `$${coin.low_24h.toLocaleString()}` : '—';
+                        const volume = coin.total_volume ? `$${coin.total_volume.toLocaleString()}` : '—';
+                        const supply = coin.circulating_supply ? coin.circulating_supply.toLocaleString() : '—';
+                        statsEl.innerHTML = `
+                            <span class="stat-item"><i class="fas fa-chart-bar"></i> 24h high: ${high}</span>
+                            <span class="stat-item"><i class="fas fa-chart-bar"></i> low: ${low}</span>
+                            <span class="stat-item"><i class="fas fa-water"></i> volume: ${volume}</span>
+                            <span class="stat-item"><i class="fas fa-database"></i> supply: ${supply}</span>
+                        `;
+                    }
+
+                    // update chart with current price
+                    const chart = charts[id];
+                    if (chart) {
+                        chart.data.labels.push(nowLabel);
+                        chart.data.datasets[0].data.push(coin.current_price);
+                        if (chart.data.labels.length > MAX_CHART_POINTS) {
+                            chart.data.labels.shift();
+                            chart.data.datasets[0].data.shift();
+                        }
+                        chart.update();
+
+                        // compute RSI / momentum from chart data
+                        const prices = chart.data.datasets[0].data;
+                        const { rsi, momentum } = computeIndicators(prices);
+                        const indEl = document.getElementById(`indicator-${id}`);
+                        if (indEl) {
+                            indEl.innerHTML = `<i class="fas fa-chart-simple"></i> RSI(14): ${rsi} · momentum: $${momentum}`;
+                        }
+                    }
+                });
+
+                // second pass for any missing (e.g. coin in activeTiles but not in response? just skip)
+            } catch (e) {
+                console.warn('live update err', e);
+            }
+        }
+
+        // periodic histo refresh (every 5 min)
+        function startBackgroundRefresh() {
+            setInterval(() => {
+                if (activeTiles.length) fetchAllHistorical();
+            }, 300000);
+        }
+
+        // init
+        function init() {
+            rebuildDashboard();
+            setInterval(updateLivePrices, UPDATE_INTERVAL);
+            startBackgroundRefresh();
+        }
+
+        updateBtn.addEventListener('click', rebuildDashboard);
+
+        init();
+
+        // add small helper for pseudo indicators
+    })();
+</script>
+<!-- ensure that all icons / tooltips work -->
+</body>
+</html>

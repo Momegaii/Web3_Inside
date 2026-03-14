@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tier1 CEX · DEX · WEB3 INSIDE</title>
+    <style>
+        /* Import premium fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background with image and blur */
+        body {
+            font-family: 'Space Grotesk', 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Background image container */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('wb3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Blur overlay */
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cardGlow {
+            0% { box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5); border-color: rgba(132, 204, 22, 0.2); }
+            50% { box-shadow: 0 20px 40px -5px rgba(132, 204, 22, 0.3); border-color: rgba(132, 204, 22, 0.5); }
+            100% { box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5); border-color: rgba(132, 204, 22, 0.2); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Gradient text - lime green */
+        .gradient-text {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Glassmorphism - premium effect */
+        .glass {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Header styles */
+        header {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 32px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 50%, #84cc16 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(132, 204, 22, 0.3);
+        }
+
+        h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 20px 0 15px;
+            color: white;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 30px 0 20px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #84cc16;
+            padding-left: 20px;
+        }
+
+        .button-nav {
+            margin: 30px 0 15px;
+        }
+
+        .Btn {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(132, 204, 22, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .Btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px rgba(132, 204, 22, 0.4);
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+        }
+
+        /* Main content */
+        main {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px;
+            border-radius: 32px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* platform cards grid */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .platform-card {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(132, 204, 22, 0.2);
+            border-radius: 28px;
+            padding: 30px 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+            animation: cardGlow 4s infinite ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-8px);
+            border-color: #84cc16;
+            box-shadow: 0 30px 45px -10px rgba(132, 204, 22, 0.4);
+        }
+
+        .card-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #84cc16 0%, #3b5e0a 100%);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+            align-self: flex-start;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .platform-card h4 {
+            font-size: 2rem;
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            margin: 10px 0 5px;
+            background: linear-gradient(135deg, #ffffff 0%, #e0f2a5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .platform-desc {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 15px 0 20px;
+            flex-grow: 1;
+        }
+
+        .tier-tag {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #84cc16;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px 0 15px;
+        }
+
+        .tier-tag::before {
+            content: "✦";
+            font-size: 1.2rem;
+        }
+
+        .btn-link {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(132, 204, 22, 0.5);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-link:hover {
+            background: #84cc16;
+            color: black;
+            border-color: #84cc16;
+        }
+
+        /* special cex/dex sections */
+        .section-tag {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .cex-badge {
+            background: #1e3a8a;
+            padding: 5px 20px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-left: 4px solid #84cc16;
+        }
+
+        .dex-badge {
+            background: #6b21a8;
+            padding: 5px 20px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-left: 4px solid #84cc16;
+        }
+
+        hr {
+            border: 0.5px solid rgba(132, 204, 22, 0.3);
+            margin: 30px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; display: block; }
+            h3 { font-size: 1.5rem; }
+            .Btn { width: 100%; }
+            header, main { padding: 25px; }
+            .platform-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="background-blur"></div>
+
+    <header>
+        <h1>WEB3_INSIDE</h1>
+        <div>
+            <h2>tier1 · CEX · DEX
+                <span class="ada-badge" style="background: linear-gradient(135deg,#1e3a8a,#84cc16);">best platforms</span>
+            </h2>
+            <h3>centralized + decentralized exchange links</h3>
+        </div>
+        <div class="button-nav">
+            <button class="Btn" onclick="location.href='index.html';">← BACK TO MAIN</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- CEX SECTION -->
+        <div class="section-tag">
+            <span class="cex-badge">🏦 CENTRALIZED EXCHANGES (TIER 1)</span>
+            <span class="tier-tag" style="color:#a3e635;">highest liquidity & compliance</span>
+        </div>
+        <div class="platform-grid">
+            <!-- Binance -->
+            <div class="platform-card">
+                <span class="card-badge">#1 CEX · volume leader</span>
+                <h4>Binance</h4>
+                <div class="platform-desc">World’s largest spot & futures exchange, 600+ pairs, low fees, BNB chain integration. Tier-1 security, SAFU fund.</div>
+                <div class="tier-tag">⭐ tier 0+ · 150M+ users</div>
+                <a class="btn-link" href="https://www.binance.com" target="_blank">🔗 launch Binance →</a>
+            </div>
+            <!-- Coinbase -->
+            <div class="platform-card">
+                <span class="card-badge">NASDAQ listed · USA</span>
+                <h4>Coinbase</h4>
+                <div class="platform-desc">Most trusted on‑ramp in US/EU, institutional grade, insured custody, Base L2 ecosystem. Ideal for long-term holders.</div>
+                <div class="tier-tag">⭐ tier 1 · regulated</div>
+                <a class="btn-link" href="https://www.coinbase.com" target="_blank">🔗 visit Coinbase →</a>
+            </div>
+            <!-- Kraken -->
+            <div class="platform-card">
+                <span class="card-badge">veteran · EU/US</span>
+                <h4>Kraken</h4>
+                <div class="platform-desc">Deep order books, staking, futures, and banking licenses. Excellent reputation, proof of reserves, robust security.</div>
+                <div class="tier-tag">⭐ tier 1 · since 2011</div>
+                <a class="btn-link" href="https://www.kraken.com" target="_blank">🔗 go to Kraken →</a>
+            </div>
+            <!-- Bybit -->
+            <div class="platform-card">
+                <span class="card-badge">derivatives specialist</span>
+                <h4>Bybit</h4>
+                <div class="platform-desc">Top choice for perps, options, and copy trading. 0.01% maker fees, 70B+ daily volume, lightning execution.</div>
+                <div class="tier-tag">⭐ tier 1 · 2025 star perf</div>
+                <a class="btn-link" href="https://www.bybit.com" target="_blank">🔗 trade on Bybit →</a>
+            </div>
+            <!-- OKX -->
+            <div class="platform-card">
+                <span class="card-badge">multi-chain hub</span>
+                <h4>OKX</h4>
+                <div class="platform-desc">Leading DEX aggregator, wallet, NFT marketplace + CEX. 300+ tokens, self‑custody options, very competitive fees.</div>
+                <div class="tier-tag">⭐ tier 1 · global</div>
+                <a class="btn-link" href="https://www.okx.com" target="_blank">🔗 explore OKX →</a>
+            </div>
+            <!-- KuCoin -->
+            <div class="platform-card">
+                <span class="card-badge">altcoin gem hub</span>
+                <h4>KuCoin</h4>
+                <div class="platform-desc">Known for early listing of small caps, trading bots, futures, and passive income via lending. 20M+ users.</div>
+                <div class="tier-tag">⭐ tier 2 but massive</div>
+                <a class="btn-link" href="https://www.kucoin.com" target="_blank">🔗 KuCoin →</a>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- DEX SECTION -->
+        <div class="section-tag">
+            <span class="dex-badge">🔄 DECENTRALIZED EXCHANGES (TOP TIER)</span>
+            <span class="tier-tag" style="color:#c084fc;">non-custodial · on-chain</span>
+        </div>
+        <div class="platform-grid">
+            <!-- Uniswap -->
+            <div class="platform-card">
+                <span class="card-badge">#1 DEX · EVM</span>
+                <h4>Uniswap</h4>
+                <div class="platform-desc">v2/v3/v4, largest liquidity on Ethereum, Arbitrum, Optimism, Polygon. 2.5T+ cumulative volume. Industry standard AMM.</div>
+                <div class="tier-tag">✦ tier 0 (DEX)</div>
+                <a class="btn-link" href="https://app.uniswap.org" target="_blank">🔗 swap on Uniswap →</a>
+            </div>
+            <!-- Jupiter -->
+            <div class="platform-card">
+                <span class="card-badge">Solana #1</span>
+                <h4>Jupiter</h4>
+                <div class="platform-desc">Ultra low slippage, limit orders, DCA, perpetuals. Aggregates all Solana liquidity. 10M+ monthly users.</div>
+                <div class="tier-tag">✦ tier 1 · Solana king</div>
+                <a class="btn-link" href="https://jup.ag" target="_blank">🔗 Jupiter exchange →</a>
+            </div>
+            <!-- Curve -->
+            <div class="platform-card">
+                <span class="card-badge">stablecoin specialist</span>
+                <h4>Curve Finance</h4>
+                <div class="platform-desc">Most efficient stableswaps, low slippage, deep liquidity for stable pairs, cross-chain via Curve pools.</div>
+                <div class="tier-tag">✦ tier 1 · stables</div>
+                <a class="btn-link" href="https://curve.fi" target="_blank">🔗 Curve →</a>
+            </div>
+            <!-- dYdX -->
+            <div class="platform-card">
+                <span class="card-badge">perpetuals DEX</span>
+                <h4>dYdX</h4>
+                <div class="platform-desc">Orderbook‑based perps on dYdX chain (Cosmos). up to 20x leverage, self‑custodial, audited.</div>
+                <div class="tier-tag">✦ tier 1 · derivatives</div>
+                <a class="btn-link" href="https://dydx.trade" target="_blank">🔗 dYdX trade →</a>
+            </div>
+            <!-- PancakeSwap -->
+            <div class="platform-card">
+                <span class="card-badge">BNB Chain leader</span>
+                <h4>PancakeSwap</h4>
+                <div class="platform-desc">Most popular DEX on BSC, also on Ethereum, Aptos. Low fees, lotteries, yield farms, Syrup pools.</div>
+                <div class="tier-tag">✦ tier 1 · multichain</div>
+                <a class="btn-link" href="https://pancakeswap.finance" target="_blank">🔗 PancakeSwap →</a>
+            </div>
+            <!-- Aerodrome -->
+            <div class="platform-card">
+                <span class="card-badge">Base native · ve(3,3)</span>
+                <h4>Aerodrome</h4>
+                <div class="platform-desc">Main DEX on Base (Coinbase L2). Vote‑escrow model, deep liquidity, high yields for Base ecosystem.</div>
+                <div class="tier-tag">✦ tier 2 · up & comer</div>
+                <a class="btn-link" href="https://aerodrome.finance" target="_blank">🔗 Aerodrome →</a>
+            </div>
+            <!-- Osmosis -->
+            <div class="platform-card">
+                <span class="card-badge">Cosmos hub</span>
+                <h4>Osmosis</h4>
+                <div class="platform-desc">Cross-chain DEX in IBC ecosystem, superfluid staking, hundreds of Cosmos assets, smooth UI.</div>
+                <div class="tier-tag">✦ tier 1 · interchain</div>
+                <a class="btn-link" href="https://osmosis.zone" target="_blank">🔗 Osmosis →</a>
+            </div>
+            <!-- Orca -->
+            <div class="platform-card">
+                <span class="card-badge">Solana · user friendly</span>
+                <h4>Orca</h4>
+                <div class="platform-desc">Concentrated liquidity AMM, whirlpools, fast and cheap. Beautiful interface, deep Solana pairs.</div>
+                <div class="tier-tag">✦ tier 2 · elegant</div>
+                <a class="btn-link" href="https://www.orca.so" target="_blank">🔗 Orca →</a>
+            </div>
+        </div>
+
+        <!-- additional aggregators / note -->
+        <section style="margin-top: 50px;">
+            <h3>⚡ also consider aggregators (best execution)</h3>
+            <ul style="list-style-type: none; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 32px;">
+                <li style="flex: 1 1 200px;"><strong>1inch</strong> — <a href="https://app.1inch.io" target="_blank">1inch.io</a> <span style="display:block; font-size:0.8rem;">splits routes across all DEXs</span></li>
+                <li style="flex: 1 1 200px;"><strong>Cow Swap</strong> — <a href="https://swap.cow.fi" target="_blank">cow.fi</a> <span style="display:block; font-size:0.8rem;">MEV protected, gasless orders</span></li>
+                <li style="flex: 1 1 200px;"><strong>ParaSwap</strong> — <a href="https://www.paraswap.io" target="_blank">paraswap.io</a> <span style="display:block; font-size:0.8rem;">multi-chain aggregator</span></li>
+                <li style="flex: 1 1 200px;"><strong>Matcha (0x)</strong> — <a href="https://www.matcha.xyz" target="_blank">matcha.xyz</a> <span style="display:block; font-size:0.8rem;">simple UX, limit orders</span></li>
+            </ul>
+            <p class="warning" style="background:rgba(132,204,22,0.1); border-left-color:#84cc16; margin-top: 20px;">
+                ✅ <strong>tier explanation:</strong> tier 1 = highest volume / regulatory compliant / longest track record. Tier 0 = absolute market leader. All links are direct to official dApps. DYOR.
+            </p>
+        </section>
+
+        <!-- small footer note for platforms -->
+        <p style="text-align: right; font-style: italic; color: #bbb;">Last updated Q1 2026 · always use official URLs and double‑check phishing</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 WEB3_INSIDE_Momegaii — complete CEX + DEX tier list</p>
+    </footer>
+</body>
+</html>

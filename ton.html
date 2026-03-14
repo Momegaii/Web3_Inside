@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toncoin (TON) - WEB3_INSIDE</title>
+    <style>
+        /* Import premium fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background with image and blur */
+        body {
+            font-family: 'Space Grotesk', 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Background image container */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('wb3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Blur overlay */
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Gradient text - lime green */
+        .gradient-text {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Glassmorphism - premium effect */
+        .glass {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Header styles */
+        header {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 32px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 50%, #84cc16 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(132, 204, 22, 0.3);
+        }
+
+        h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 20px 0 15px;
+            color: white;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 30px 0 20px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #84cc16;
+            padding-left: 20px;
+        }
+
+        h4 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 25px 0 15px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #84cc16;
+            padding-left: 15px;
+        }
+
+        .button-nav {
+            margin: 30px 0 15px;
+        }
+
+        .Btn {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(132, 204, 22, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .Btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px rgba(132, 204, 22, 0.4);
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+        }
+
+        /* Main content */
+        main {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px;
+            border-radius: 32px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            line-height: 1.8;
+        }
+
+        ul {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 30px 45px;
+            border-radius: 24px;
+            border-left: 4px solid #84cc16;
+            margin: 25px 0;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        li {
+            margin: 15px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.05rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        li strong {
+            color: #84cc16;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(132, 204, 22, 0.3);
+        }
+
+        a {
+            color: #84cc16;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(132, 204, 22, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: #a3e635;
+            border-bottom: 1px solid #84cc16;
+        }
+
+        /* Warning/alert styling */
+        .warning {
+            background: rgba(239, 68, 68, 0.2);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #ef4444;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 25px 0;
+            color: #fff;
+        }
+
+        .warning strong {
+            color: #ef4444;
+        }
+
+        /* TON-specific badge */
+        .ton-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0000 0%, #65a30d 100%);
+            padding: 4px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 15px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(132, 204, 22, 0.5);
+        }
+
+        /* Telegram highlight */
+        .telegram-highlight {
+            color: #84cc16;
+            font-weight: 600;
+            background: rgba(132, 204, 22, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+        }
+
+        /* Durov highlight */
+        .durov-highlight {
+            color: #84cc16;
+            font-weight: 600;
+            background: rgba(132, 204, 22, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+        }
+
+        /* TON Foundation highlight */
+        .tonfoundation-highlight {
+            color: #84cc16;
+            font-weight: 600;
+            background: rgba(132, 204, 22, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #65a30d;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+                display: block;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            h4 {
+                font-size: 1.3rem;
+            }
+            
+            .Btn {
+                width: 100%;
+            }
+            
+            header, main {
+                padding: 25px;
+            }
+            
+            ul {
+                padding: 20px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background image -->
+    <div class="background-image"></div>
+    <!-- Blur overlay -->
+    <div class="background-blur"></div>
+
+    <header>
+        <h1>WEB3_INSIDE</h1>
+        <div>
+            <h2>TONCOIN (TON) 
+                <span class="ton-badge">Telegram L1</span>
+            </h2>
+            <h3>Research & Analysis</h3>
+        </div>
+        <div class="button-nav">
+            <button class="Btn" onclick="location.href='projects.html'">← BACK TO PROJECTS</button>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h3>1. What TON Actually Is</h3>
+            <p>Toncoin (TON) is the native cryptocurrency of <strong>The Open Network (TON)</strong> — a decentralized, scalable Layer‑1 blockchain built for fast, low‑cost transactions and smart contracts, with deep integration into the <span class="telegram-highlight">Telegram ecosystem</span>. The network's design allows rapid transaction processing and can serve applications ranging from payments to DeFi and decentralized storage.</p>
+        </section>
+
+        <section>
+            <h3>2. Who Created TON</h3>
+            <p>TON was originally created by <span class="durov-highlight">Pavel Durov</span> and <span class="durov-highlight">Nikolai Durov</span>, the founders of Telegram, aiming to integrate blockchain with the messaging platform's massive user base. The project raised about $1.7 billion in a private token sale in 2018, making it one of the largest early‑stage fundraises in crypto. Regulatory issues halted Telegram's involvement in 2020, and the network was later continued by the independent <span class="tonfoundation-highlight">TON Foundation</span>.</p>
+        </section>
+
+        <section>
+            <h3>3. Team & Development</h3>
+            <p>After Telegram stepped back, the TON ecosystem has been developed and governed by the <span class="tonfoundation-highlight">TON Foundation</span> and community contributors. The open‑source foundation steers upgrades, ecosystem growth, and partnerships, while independent developers continue to build dApps and infrastructure on TON.</p>
+        </section>
+
+        <section>
+            <h3>4. How TON Works</h3>
+            <p>TON uses a <strong>proof‑of‑stake (PoS)</strong> consensus mechanism, where validators secure the network by staking TON tokens. Its multi‑chain design with sharding allows parallel processing of transactions, which helps TON scale and maintain low fees even as usage grows. Integration with <span class="telegram-highlight">Telegram wallets</span> makes crypto interactions easier for mainstream users.</p>
+        </section>
+
+        <section>
+            <h3>5. Risks of Trading TON</h3>
+            <ul>
+                <li><strong>Market Volatility:</strong> TON's price is highly sensitive to crypto market cycles and news.</li>
+                <li><strong>Regulatory Risk:</strong> History of legal challenges has left some uncertainty around compliance and listings.</li>
+                <li><strong>Integration Risk:</strong> Heavy reliance on Telegram's ecosystem means changes to the app or its strategy could impact TON adoption.</li>
+                <li><strong>Technical Risk:</strong> As a growing ecosystem, smart contract bugs and network upgrades pose hazards like on other blockchains.</li>
+                <li><strong>Liquidity & Adoption:</strong> TON's market cap and liquidity are smaller than BTC/ETH, making exits harder in stressed markets.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>6. Supporting TON</h3>
+            <p>Holding TON supports the security and growth of The Open Network, and allows participation in staking and decentralized applications. Its integration with Telegram's wallet means users can send Toncoin easily as part of their chat experience, expanding real‑world utility.</p>
+        </section>
+
+        <section>
+            <h3>7. Institutional Investment & Big Names</h3>
+            <ul>
+                <li>Major venture firms have invested in TON and related ecosystem development, signaling institutional backing.</li>
+                <li>Some Nasdaq‑listed firms hold TON on their balance sheets as long‑term positions.</li>
+                <li>Partnerships like USDT issuance on TON show ecosystem interest from large stablecoin issuers.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>8. Why TON is Risky</h3>
+            <ul>
+                <li><strong>Price Fluctuations:</strong> TON can swing sharply with sentiment and Telegram‑related news.</li>
+                <li><strong>Regulation & Adoption Risks:</strong> Legal history and ongoing scrutiny could affect exchange listings.</li>
+                <li><strong>Tech & Smart Contract Risks:</strong> Complex blockchain ecosystems often face bugs and exploits.</li>
+                <li><strong>Network Dependence:</strong> Heavy linkage with Telegram means shifts in app policy or usage could ripple into TON's economy.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>9. Reducing TON Risk</h3>
+            <ul>
+                <li>Use secure wallets instead of exchanges for custody.</li>
+                <li>Stake only through reputable validators.</li>
+                <li>Diversify holdings across other assets.</li>
+                <li>Research developer activity and project roadmaps before committing.</li>
+            </ul>
+            <div class="warning">
+                <p><strong>⚠️ RISK WARNING:</strong> Even with precautions, TON remains volatile and subject to systemic crypto risks — always invest only what you can afford to lose.</p>
+            </div>
+        </section>
+
+        <section>
+            <h3>10. DeFi & Passive Earn with TON</h3>
+            <p>Toncoin powers DeFi protocols, staking, and yield‑earning opportunities within the TON ecosystem. Liquidity can be provided to decentralized exchanges, staking rewards earned, or TON used in lending/borrowing pools — but yields aren't guaranteed and depend on platform safety and market conditions.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 WEB3_INSIDE_Momegaii</p>
+    </footer>
+</body>
+</html>

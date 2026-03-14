@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - WEB3 INSIDE</title>
+    <style>
+        /* Import premium fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background with image and blur */
+        body {
+            font-family: 'Space Grotesk', 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #0000;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Background image container */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('wb3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Blur overlay */
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.3); /* Dark overlay to make text pop */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Gradient text - lime green */
+        .gradient-text {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Card hover effects with glassmorphism */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 40px -15px rgba(132, 204, 22, 0.3);
+        }
+
+        /* Score circles - lime green */
+        .score-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 10px 20px rgba(132, 204, 22, 0.3);
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .score-circle span {
+            position: relative;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Progress bars with lime green gradient */
+        .progress-gradient {
+            background: linear-gradient(90deg, #84cc16, #65a30d, #4d7c0f);
+            height: 8px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(132, 204, 22, 0.5);
+        }
+
+        /* Glassmorphism - premium effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Loading spinner - lime green */
+        .spinner {
+            border: 3px solid rgba(132, 204, 22, 0.2);
+            border-radius: 50%;
+            border-top: 3px solid #84cc16;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive tables */
+        @media (max-width: 640px) {
+            .responsive-table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Custom scrollbar - lime green accent */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16;
+            border-radius: 5px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #65a30d;
+        }
+
+        /* Tooltips - premium style */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            text-align: center;
+            border-radius: 12px;
+            padding: 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Notification badges - lime green theme */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .badge-success {
+            background: rgba(132, 204, 22, 0.2);
+            backdrop-filter: blur(5px);
+            color: #84cc16;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+        }
+
+        .badge-warning {
+            background: rgba(250, 204, 21, 0.2);
+            backdrop-filter: blur(5px);
+            color: #facc15;
+            border: 1px solid rgba(250, 204, 21, 0.3);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            backdrop-filter: blur(5px);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(5px);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* Header styles - premium glass */
+        header {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 32px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 50%, #84cc16 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(132, 204, 22, 0.3);
+        }
+
+        .button {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .Btn {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(132, 204, 22, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .Btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px rgba(132, 204, 22, 0.4);
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+        }
+
+        h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 35px 0 20px;
+            color: white;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 30px 0 20px;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        ul {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 30px 45px;
+            border-radius: 24px;
+            border-left: 4px solid #84cc16;
+            margin: 25px 0;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        li {
+            margin: 15px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.05rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        li strong {
+            color: #84cc16;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(132, 204, 22, 0.3);
+        }
+
+        main {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px;
+            border-radius: 32px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            .button {
+                flex-direction: column;
+            }
+            
+            .Btn {
+                width: 100%;
+            }
+            
+            header, main {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background image -->
+    <div class="background-image"></div>
+    <!-- Blur overlay -->
+    <div class="background-blur"></div>
+
+    <header class="glass">
+        <h1>WEB3 INSIDE</h1>
+        <div class="button">
+            <button class="Btn" onclick="location.href='https://ms20-sys.onrender.com/stars'">Home</button>
+            <button class="Btn" onclick="location.href='projects.html'">Projects</button>
+            <button class="Btn" onclick="location.href='learning.html'">Learning</button>
+            <button class="Btn" onclick="location.href='stats.html'">Stats and Analysis</button>
+            <button class="Btn" onclick="location.href='news.html'">News and Fundamental Analysis</button>
+	    <button class="Btn" onclick="location.href='general_facts.html'">Facts that you need to know </button>
+	    <button class="Btn" onclick="location.href='plats.html'">WEB3 - Platforms</button>
+		
+        </div>
+        <div>
+            <h2 class="gradient-text">Your Choice For A Better Economy</h2>
+            <h3>The Mission</h3>
+            <p>
+                By early 2024, the crypto-Web3 market was a mix of bold dreams and harsh realities: huge price swings, fragmented protocols, and security breaches made it chaotic. Key points:
+            </p>
+            <ul>
+                <li><strong>2024 Price Volatility:</strong> BTC and ETH saw wild rallies and crashes; DeFi and altcoins acted as shock absorbers. The $230M WazirX hack shook confidence.</li>
+                <li><strong>Funding:</strong> Q1 2024 brought $2.5B in Web3 funding, mostly speculative projects. By 2025, fewer deals with larger investments reflected selective capital.</li>
+                <li><strong>Structural Weakness:</strong> Exploits and bugs cost hundreds of millions. DeFi usage grew, but stability lagged; user engagement remained speculative.</li>
+                <li><strong>Adoption:</strong> Wallets and activity increased, but much was trading, airdrops, or meme tokens — not real economic use.</li>
+                <li><strong>2025 Highlights:</strong> Larger capital concentrations, selective funding, and ongoing regulatory scrutiny shaped the market. Security incidents persisted but adoption slowly diversified into NFTs, gaming, and DAO experiments.</li>
+            </ul>
+            <p>
+                Bottom line: Web3 didn't collapse — it matured publicly, shedding illusions and facing real-world complexity head-on.
+            </p>
+            <p>As a result, our goal is to increase visibility, guide users who don't know where to start, and show how to help strengthen the global economy—because gambling alone will not drive lasting growth.</p>
+        </div>
+    </header>
+
+    <main class="glass">
+        <h2 class="gradient-text">Welcome to your investment intel.</h2>
+        <p>Highlight your key offerings here.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 WEB3_INSIDE_Momegaii</p>
+    </footer>
+</body>
+</html>
